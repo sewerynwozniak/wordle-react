@@ -1,0 +1,21 @@
+.board{
+
+    &__wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    &__row{
+        display: flex;
+        justify-content: center;
+
+    }
+
+    &__tile{
+        width: 62px;
+        height: 62px;
+        margin: 5px;
+        border: 2px solid #4b4b4b;
+    }
+}
