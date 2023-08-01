@@ -5,7 +5,7 @@ import { ThemeContext } from '../Context';
 
 const Board = () => {
 
-   const {boardIndex, setBoardIndex, board} = useContext(ThemeContext);
+   const {boardIndex, board} = useContext(ThemeContext);
 
 
   return (

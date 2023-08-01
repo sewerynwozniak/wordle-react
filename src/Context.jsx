@@ -1,61 +1,61 @@
-import React, {useState, useEffect} from 'react';
-
+import React, { useState, useEffect } from 'react';
 
 export const ThemeContext = React.createContext();
 
+const ContextProvider = ({ children }) => {
+  const boardTemplate = [
+    ['','','','',''],
+    ['','','','',''], 
+    ['','','','',''],
+    ['','','','',''],
+    ['','','','',''],
+    ['','','','',''],
+  ];
 
-const ContextProvider = ({children}) => {
+  const [board, setBoard] = useState(boardTemplate);
+  const [keyArg, setKeyArg] = useState(null);
+  const [boardIndex, setBoardIndex] = useState({ row: 0, index: -1 });
 
-
-      const boardTemplate=[
-        ['','','','',''],
-        ['','','','',''], 
-        ['','','','',''],
-        ['','','','',''],
-        ['','','','',''],
-        ['','','','',''],
-      ]
-    
-    const [board, setBoard] = useState(boardTemplate)
-
-    const [boardIndex, setBoardIndex] = useState({row:0,index:0})
-
-
-  
-    const selectLetter = (key)=>{
-      setBoardIndex({...boardIndex,index:boardIndex.index+1})
-
-
-      const updatedBoard = board.map((row) => [...row]);
+  const updateBoardIndex = (key) => {
+    setBoard((prevBoard) => {
+      const updatedBoard = prevBoard.map((row) => [...row]);
       updatedBoard[boardIndex.row][boardIndex.index] = key;
-    
-      setBoard(updatedBoard)
-    }
-
-  const clickKey = (key)=>{
-    if(key=='ENTER'){
-
-    }
-    if(key=='BACK'){
-
-    }else{
-      selectLetter(key)
-
-    }
-
-  }
+      return updatedBoard;
+    });
+  };
 
   useEffect(() => {
-    // console.log('old board',boardTemplate)
-     console.log('new board', board);
-  }, [board]);
+    if (keyArg !== null) {
+      updateBoardIndex(keyArg);
+      setKeyArg(null);
+    }
 
+    if (boardIndex.index === boardTemplate[0].length - 1) {
+      console.log('sprawdzamy');
+    }
+  }, [boardIndex, keyArg]);
+
+  const clickKey = (newKey) => {
+    if (newKey === 'ENTER') {
+      // Do something
+    } else if (newKey === 'BACK') {
+      // Do something
+    } else {
+      if (boardIndex.index < boardTemplate[0].length - 1) {
+        setKeyArg(newKey);
+        setBoardIndex((prevIndex) => ({ ...prevIndex, index: prevIndex.index + 1 }));
+      } else {
+        setKeyArg(newKey);
+        setBoardIndex((prevIndex) => ({ row: prevIndex.row + 1, index: 0 }));
+      }
+    }
+  };
 
   return (
-    <ThemeContext.Provider value={{boardIndex, setBoardIndex, boardTemplate,board, clickKey}}> 
-        {children}
-    </ThemeContext.Provider> 
-  )
-}
+    <ThemeContext.Provider value={{ boardIndex, boardTemplate, board, clickKey }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
 
-export default ContextProvider
+export default ContextProvider;
