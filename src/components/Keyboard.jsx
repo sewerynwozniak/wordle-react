@@ -4,7 +4,7 @@ import { ThemeContext } from '../Context';
 
 const Keyboard= () => {
 
-     const {clickKey} = useContext(ThemeContext);
+    const {clickKey} = useContext(ThemeContext);
 
     const keyboarsTable = [
         ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
