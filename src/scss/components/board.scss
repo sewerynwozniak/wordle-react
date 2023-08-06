@@ -20,5 +20,21 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: transparent;
     }
+
+
+    &__correct{
+        background-color: #5e9342;
+    }
+    &__exist{
+        background-color: #cea728;
+    }
+    &__wrong{
+        background-color: #373737;
+    }
+    &__unactive{
+        background-color: transparent;
+    }
+
 }

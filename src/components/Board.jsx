@@ -13,9 +13,9 @@ const Board = () => {
         {board.map(row=>(
           <div className="board__row">
             {row.map(tile=>(
-              <div className="board__tile">
-                <span>
-                  {tile}
+              <div className={`board__tile ${tile.status=='correct' ? 'board__correct' : tile.status=='exist' ? 'board__exist' : tile.status=='wrong' ? 'board__wrong':'board__unactive'}`}>
+                <span data-status={tile.status}>
+                  {tile.letter}
                 </span>
               </div>              
             ))}
