@@ -1,4 +1,4 @@
-import {useState, useContext} from 'react'
+import {useState, useContext, useEffect} from 'react'
 import { ThemeContext } from '../Context';
 
 
@@ -15,6 +15,22 @@ const Keyboard= () => {
 
     
 
+    const handleKeyPress = (e)=>{   
+         const key = e.key.toUpperCase() 
+        clickKey(key)
+    }
+
+
+
+
+    useEffect(()=>{
+        window.addEventListener('keydown', handleKeyPress)
+        return ()=>{
+            window.removeEventListener('keydown', handleKeyPress)
+        }
+    },[handleKeyPress])
+    
+
   return (
     <div className='keyboard__wrapper'>
         {keyboarsTable.map(row=>(
@@ -25,6 +41,7 @@ const Keyboard= () => {
                         <div 
                             className={`keyboard__key ${key === 'ENTER' || key === 'BACK' ? 'keyboard__key--special' : 'keyboard__key--letter'}`} 
                             onClick={()=>clickKey(key)}
+                         
                         >
                             {key}
                         </div>

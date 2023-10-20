@@ -7,6 +7,9 @@ export const ThemeContext = React.createContext();
 
 
 const ContextProvider = ({ children }) => {
+
+ 
+
   const boardTemplate = [
     [{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null}],
     [{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null}], 
@@ -19,15 +22,16 @@ const ContextProvider = ({ children }) => {
   const [board, setBoard] = useState(boardTemplate);
   const [keyArg, setKeyArg] = useState(null);
   const [boardIndex, setBoardIndex] = useState({ row: 0, index: -1 });
-  //const [targetWord, setTargetWord] = useState(null);
+  const [targetWord, setTargetWord] = useState(null);
 
-  let targetWord = 'chute'
+ 
 
   //message
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
 
 
+ 
 
 
   const updateBoardIndex = (key) => {
@@ -47,7 +51,7 @@ const ContextProvider = ({ children }) => {
 
   const displayMessage = (messageArg)=>{
     setShowMessage(message=>!message)
-    setMessage(messageArg)
+    setMessage(messageArg)  
 
     //remove after x time
     setTimeout(()=>{
@@ -58,7 +62,6 @@ const ContextProvider = ({ children }) => {
 
   const checkWord = ()=>{
  
-    console.log(targetWord)
 
     if(!checkIfEnoughLetter()){
       displayMessage('Not enough words!')
@@ -69,7 +72,7 @@ const ContextProvider = ({ children }) => {
      
 
       if(dictionary.some(dictWord=>dictWord.toUpperCase()==word)){
-        console.log('mamy takie słowo')
+ 
 
         //checking letters position
 
@@ -92,13 +95,20 @@ const ContextProvider = ({ children }) => {
         }))
         
 
-        
+ 
+        if(!checkIfWin() && boardIndex.row < board.length-1 ){
+            setBoardIndex((prevIndex) => ({ row: prevIndex.row + 1, index: -1 }));
+        }
 
-        setBoardIndex((prevIndex) => ({ row: prevIndex.row + 1, index: -1 }));
        
       }else{
         displayMessage('Not a word')
       }
+
+      if(checkIfWin()){
+        displayMessage('You win!')
+      }
+      
     }
 
     
@@ -106,11 +116,24 @@ const ContextProvider = ({ children }) => {
 
 
 
+  const checkIfWin = ()=>{
+    console.log(targetWord)
+    return targetWord.toUpperCase() == board[boardIndex.row].map(obj=>obj.letter).join('').toUpperCase()
+  }
+
+
+
   const clickKey = (newKey) => {
-    if (newKey === 'ENTER') {
+
+  
+
+
+    if (newKey == 'ENTER') {
       checkWord()
 
-    } else if (newKey === 'BACK') {
+    } else if (newKey == 'BACK') {
+
+      if(checkIfWin()) return;
 
       if(boardIndex.index==-1) return
 
@@ -122,6 +145,10 @@ const ContextProvider = ({ children }) => {
       setBoardIndex((prevIndex) => ({ ...prevIndex, index: prevIndex.index - 1 }));
 
     } else {
+
+     
+      if(checkIfWin()) return;
+
       if (boardIndex.index < boardTemplate[0].length - 1) {
         setKeyArg(newKey);
         setBoardIndex((prevIndex) => ({ ...prevIndex, index: prevIndex.index + 1 }));
@@ -131,20 +158,24 @@ const ContextProvider = ({ children }) => {
   };
 
 
-  // const drawLetter = ()=>{   
-  //   const randomNumber = Math.floor(Math.random() * targetWords.length);
-  //   return targetWords[randomNumber]
-  // }
+  const drawLetter = ()=>{   
+    const randomNumber = Math.floor(Math.random() * targetWords.length);
+    console.log(targetWords[randomNumber])
+    return targetWords[randomNumber]
+  }
 
 
-  // useEffect(() => {
-  //   setTargetWord(drawLetter())
-  // }, []);
+  useEffect(() => {
+    
+    setTargetWord(drawLetter())
+  }, []);
 
 
 
   //useEffect
   useEffect(() => {
+
+    
     if (keyArg !== null) {
       updateBoardIndex(keyArg);
       setKeyArg(null);

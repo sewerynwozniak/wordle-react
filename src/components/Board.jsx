@@ -9,7 +9,9 @@ const Board = () => {
 
 
   return (
-    <div className='board__wrapper'>
+    <div className='board__wrapper'
+      onKeyDown={(e)=>console.log(e)}
+    >
         {board.map(row=>(
           <div className="board__row">
             {row.map(tile=>(
