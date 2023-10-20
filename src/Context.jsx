@@ -126,12 +126,13 @@ const ContextProvider = ({ children }) => {
   const clickKey = (newKey) => {
 
   
-
+    console.log(newKey)
 
     if (newKey == 'ENTER') {
+      
       checkWord()
 
-    } else if (newKey == 'BACK') {
+    } else if (newKey == 'BACKSPACE') {
 
       if(checkIfWin()) return;
 
