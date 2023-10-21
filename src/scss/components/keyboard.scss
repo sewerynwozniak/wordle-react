@@ -20,6 +20,10 @@
         align-items: center;
         cursor: pointer;
 
+        &:focus{
+            outline: 1px solid #fff;
+        }
+
         &--letter{
             width: 43px;
         }

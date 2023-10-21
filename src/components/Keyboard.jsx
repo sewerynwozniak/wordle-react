@@ -17,7 +17,14 @@ const Keyboard= () => {
 
     const handleKeyPress = (e)=>{   
          const key = e.key.toUpperCase() 
-        clickKey(key)
+         if(/^[a-zA-Z]$/.test(key) | key=='ENTER' | key=='BACKSPACE'){
+             clickKey(key)
+
+         }
+    }
+
+    const handleKeyDown = (e)=>{   
+         //console.log(e)
     }
 
 
@@ -38,13 +45,14 @@ const Keyboard= () => {
                 {row.map(key=>(
                     
                     (
-                        <div 
+                        <button 
                             className={`keyboard__key ${key === 'ENTER' ? 'keyboard__key--enter' : key === 'BACKSPACE' ? 'keyboard__key--backspace':'keyboard__key--letter'}`} 
                             onClick={()=>clickKey(key)}
-                         
+                            onKeyDown={handleKeyDown}
+                            tabIndex={0}
                         >
                             {key}
-                        </div>
+                        </button>
                     )
                                     
                 ))}

@@ -125,8 +125,7 @@ const ContextProvider = ({ children }) => {
 
   const clickKey = (newKey) => {
 
-  
-    console.log(newKey)
+
 
     if (newKey == 'ENTER') {
       
@@ -161,7 +160,6 @@ const ContextProvider = ({ children }) => {
 
   const drawLetter = ()=>{   
     const randomNumber = Math.floor(Math.random() * targetWords.length);
-    console.log(targetWords[randomNumber])
     return targetWords[randomNumber]
   }
 
