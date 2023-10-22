@@ -4,7 +4,9 @@ import { ThemeContext } from '../Context';
 
 const Keyboard= () => {
 
-    const {clickKey} = useContext(ThemeContext);
+    const {clickKey, keyboards} = useContext(ThemeContext);
+
+
 
     const keyboarsTable = [
         ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -23,9 +25,7 @@ const Keyboard= () => {
          }
     }
 
-    const handleKeyDown = (e)=>{   
-         //console.log(e)
-    }
+
 
 
 
@@ -40,18 +40,17 @@ const Keyboard= () => {
 
   return (
     <div className='keyboard__wrapper'>
-        {keyboarsTable.map(row=>(
+        {keyboards.map(row=>(
             <div className="keyboard__row">
                 {row.map(key=>(
                     
                     (
                         <button 
-                            className={`keyboard__key ${key === 'ENTER' ? 'keyboard__key--enter' : key === 'BACKSPACE' ? 'keyboard__key--backspace':'keyboard__key--letter'}`} 
-                            onClick={()=>clickKey(key)}
-                            onKeyDown={handleKeyDown}
-                            tabIndex={0}
+                            className={`keyboard__key ${key.letter === 'ENTER' ? 'keyboard__key--enter' : key.letter === 'BACKSPACE' ? 'keyboard__key--backspace':'keyboard__key--letter'}`} 
+                            onClick={()=>clickKey(key.letter)}
+                                               
                         >
-                            {key}
+                            {key.letter}
                         </button>
                     )
                                     

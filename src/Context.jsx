@@ -11,15 +11,28 @@ const ContextProvider = ({ children }) => {
  
 
   const boardTemplate = [
-    [{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null}],
-    [{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null}], 
-    [{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null}],
-    [{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null}],
-    [{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null}],
-    [{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null},{letter:'',state:null}]
+    [{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null}],
+    [{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null}], 
+    [{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null}],
+    [{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null}],
+    [{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null}],
+    [{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null},{letter:'',status:null}]
   ];
 
+  
+
+    const keyboarsTable = [
+        [{letter:'Q',status:null},{letter:'W',status:null},{letter:'E',status:null},{letter:'E',status:null},{letter:'R',status:null}, {letter:'T',status:null},{letter:'Y',status:null},{letter:'U',status:null}, {letter:'I',status:null},{letter:'O',status:null},{letter:'P',status:null}],
+
+        [{letter:'A',status:null},{letter:'S',status:null},{letter:'D',status:null},{letter:'F',status:null},{letter:'G',status:null}, {letter:'H',status:null},{letter:'J',status:null},{letter:'K',status:null}, {letter:'L',status:null}],
+
+        [{letter:'ENTER',status:null},{letter:'Z',status:null},{letter:'X',status:null},{letter:'C',status:null},{letter:'V',status:null}, {letter:'B',status:null},{letter:'N',status:null},{letter:'M',status:null}, {letter:'BACKSPACE',status:null}],
+       
+    ];
+
+
   const [board, setBoard] = useState(boardTemplate);
+  const [keyboards, setKeyboards] = useState(keyboarsTable);
   const [keyArg, setKeyArg] = useState(null);
   const [boardIndex, setBoardIndex] = useState({ row: 0, index: -1 });
   const [targetWord, setTargetWord] = useState(null);
@@ -189,7 +202,7 @@ const ContextProvider = ({ children }) => {
 
 
   return (
-    <ThemeContext.Provider value={{ boardIndex, boardTemplate, board, clickKey, showMessage, message}}>
+    <ThemeContext.Provider value={{ boardIndex, boardTemplate, board, keyboards, clickKey, showMessage, message}}>
       {children}
     </ThemeContext.Provider>
   );

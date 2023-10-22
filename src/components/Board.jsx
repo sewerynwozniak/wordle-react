@@ -5,13 +5,11 @@ import { ThemeContext } from '../Context';
 
 const Board = () => {
 
-   const {boardIndex, board} = useContext(ThemeContext);
+   const {board} = useContext(ThemeContext);
 
 
   return (
-    <div className='board__wrapper'
-      onKeyDown={(e)=>console.log(e)}
-    >
+    <div className='board__wrapper'>
         {board.map(row=>(
           <div className="board__row">
             {row.map(tile=>(
