@@ -46,7 +46,7 @@ const ContextProvider = ({ children }) => {
   }
 
  
-  console.log(selectedLettetrs)
+
 
   //message
   const [showMessage, setShowMessage] = useState(false);
@@ -170,7 +170,6 @@ const ContextProvider = ({ children }) => {
 
 
   const checkIfWin = ()=>{
-    console.log(targetWord)
     return targetWord.toUpperCase() == board[boardIndex.row].map(obj=>obj.letter).join('').toUpperCase()
   }
 
