@@ -33,6 +33,15 @@
         &--backspace{
             padding: 0 5px;
         }
+        &--correct{
+            background-color: #5e9342;
+        }
+        &--exist{
+            background-color: #cea728;
+        }
+        &--wrong{
+            background-color: #373737;
+        }
     }
 
 }

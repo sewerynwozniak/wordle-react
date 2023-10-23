@@ -37,7 +37,16 @@ const ContextProvider = ({ children }) => {
   const [boardIndex, setBoardIndex] = useState({ row: 0, index: -1 });
   const [targetWord, setTargetWord] = useState(null);
 
+  const selectedLettetrs={
+
+    wrong: [... new Set(board.flat().filter(el=>el.status=='wrong').map(el=>el.letter)) ],
+    exist: [... new Set(board.flat().filter(el=>el.status=='exist').map(el=>el.letter)) ],
+    correct: [... new Set(board.flat().filter(el=>el.status=='correct').map(el=>el.letter)) ]
+    
+  }
+
  
+  console.log(selectedLettetrs)
 
   //message
   const [showMessage, setShowMessage] = useState(false);
@@ -73,42 +82,73 @@ const ContextProvider = ({ children }) => {
   }
 
 
+
+
+  const updateLetterStatus =()=>{
+   
+    setBoard((prevBoard) => prevBoard.map((row, i)=>{
+      if(i==boardIndex.row){       
+        return row.map((prevObj,i)=>{
+          if(prevObj.letter.toUpperCase()==targetWord[i].toUpperCase()){           
+            return {...prevObj, status:'correct'}
+          }else if(targetWord.toUpperCase().includes(prevObj.letter.toUpperCase())){
+            return {...prevObj, status:'exist'}
+          }else{
+            return {...prevObj, status:'wrong'}
+          }
+        })
+
+      }else{
+        return row
+      }
+
+    }))
+
+  }
+
+
+
+  useEffect(()=>{
+   //update keyboards' status after board updates
+  
+    setKeyboards(prevKeyboard=>prevKeyboard.map(row=>row.map(letterObj=>{
+
+      if(selectedLettetrs.wrong.includes(letterObj.letter)){
+        return {...letterObj,status:'wrong'}
+      }else if(selectedLettetrs.exist.includes(letterObj.letter)){
+        return {...letterObj,status:'exist'}
+      }else if(selectedLettetrs.correct.includes(letterObj.letter)){
+        return {...letterObj,status:'correct'}
+      }else{
+        return letterObj
+      }
+      
+    })))
+
+  },[board])
+
+
+
+
+
   const checkWord = ()=>{
  
 
     if(!checkIfEnoughLetter()){
       displayMessage('Not enough words!')
     }else{
-
       
       const word = board[boardIndex.row].map(obj=>obj.letter).join('')
      
-
+      //check if this work exist in dictionary
       if(dictionary.some(dictWord=>dictWord.toUpperCase()==word)){
  
+        //update letters' status
+        updateLetterStatus()
+     
 
-        //checking letters position
 
-        setBoard((prevBoard) => prevBoard.map((row, i)=>{
-          if(i==boardIndex.row){       
-            return row.map((prevObj,i)=>{
-              if(prevObj.letter.toUpperCase()==targetWord[i].toUpperCase()){           
-                return {...prevObj, status:'correct'}
-              }else if(targetWord.toUpperCase().includes(prevObj.letter.toUpperCase())){
-                return {...prevObj, status:'exist'}
-              }else{
-                return {...prevObj, status:'wrong'}
-              }
-            })
-
-          }else{
-            return row
-          }
-
-        }))
-        
-
- 
+        //if there is no win, update boardIndex
         if(!checkIfWin() && boardIndex.row < board.length-1 ){
             setBoardIndex((prevIndex) => ({ row: prevIndex.row + 1, index: -1 }));
         }
