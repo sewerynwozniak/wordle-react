@@ -51,7 +51,7 @@ const ContextProvider = ({ children }) => {
   //message
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
-
+  const [debounceTimer, setDebounceTimer] = useState(null);
 
  
 
@@ -72,13 +72,18 @@ const ContextProvider = ({ children }) => {
 
 
   const displayMessage = (messageArg)=>{
+
+    if(showMessage==true) return
+
+
     setShowMessage(message=>!message)
     setMessage(messageArg)  
 
     //remove after x time
-    setTimeout(()=>{
+    const timer = setTimeout(()=>{
       setShowMessage(message=>!message)
     },1000)
+  
   }
 
 

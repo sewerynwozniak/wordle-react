@@ -10,10 +10,10 @@ const Board = () => {
 
   return (
     <div className='board__wrapper'>
-        {board.map(row=>(
-          <div className="board__row">
-            {row.map(tile=>(
-              <div className={`board__tile ${tile.status=='correct' ? 'board__correct' : tile.status=='exist' ? 'board__exist' : tile.status=='wrong' ? 'board__wrong':'board__unactive'}`}>
+        {board.map((row, i)=>(
+          <div key={i} className="board__row">
+            {row.map((tile,i)=>(
+              <div key={i} className={`board__tile ${tile.status=='correct' ? 'board__correct' : tile.status=='exist' ? 'board__exist' : tile.status=='wrong' ? 'board__wrong':'board__unactive'}`}>
                 <span data-status={tile.status}>
                   {tile.letter}
                 </span>

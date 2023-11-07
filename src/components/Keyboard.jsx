@@ -43,16 +43,14 @@ const Keyboard= () => {
 
   return (
     <div className='keyboard__wrapper'>
-        {keyboards.map(row=>(
-            <div className="keyboard__row">
-                {row.map(key=>(
+        {keyboards.map((row, i)=>(
+            <div
+            key={i} className="keyboard__row">
+                {row.map((key,i)=>(
                     
                     (
-                        <button 
+                        <button key={i}
                             className={`keyboard__key ${key.letter === 'ENTER'? 'keyboard__key--enter' : key.letter === 'BACKSPACE'? 'keyboard__key--backspace': 'keyboard__key--letter'} ${key.status==='correct'? 'keyboard__key--correct' : key.status==='exist'? 'keyboard__key--exist' : key.status==='wrong'? 'keyboard__key--wrong':''}`} 
-
-               
-                          
 
                             onClick={()=>clickKey(key.letter)}
                                                
